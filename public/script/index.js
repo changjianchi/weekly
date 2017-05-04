@@ -70,9 +70,7 @@ $(function () {
             }
         }
         else {
-            console.log('走的是ajax', link, type);
             $.when(setMd(link)).then(function (res) {
-                console.log(res, 'res');
                 md.list.push({
                     "data": res.data,
                     "code": res.code,
@@ -83,7 +81,6 @@ $(function () {
                     if ($docx_body.hasClass('markdown-body-active')) {
                         $docx_body.removeClass('markdown-body-active');
                     }
-                    console.log($docx_marked.length);
                     $docx_marked.append(res.data);
                     md.coder.push(res.code);
                 }
@@ -134,7 +131,6 @@ $(function () {
             $content_foot.addClass('show');
         }
 
-        console.log(ids, link);
         if ($(this).hasClass('add')) {
             md.type = 'add';
             if (md.flag) {
@@ -293,6 +289,7 @@ $(function () {
     $slidebar.on('click', '.newmd_btn', function () {
         $new_info.show();
         $nav.hide();
+        $slidebar.addClass('active');
         var $in_time = $container.find('.in_time');
         var time = setTime();
         $in_time.val(time);
@@ -319,10 +316,15 @@ $(function () {
                 $adress.addClass('tips_input');
             }
             else {
-                flag = true;
-                var reg = /^\//g;
-                var link = '/' + $adress.val().replace(reg, '');
-                console.log(link, 'link');
+                var mdreg = /\.md$/g;
+                if (mdreg.test($adress.val())) {
+                    flag = true;
+                    var reg = /^\//g;
+                    var link = '/' + $adress.val().replace(reg, '');
+                }
+                else {
+                    $adress.addClass('tips_input');
+                }
             }
 
             $.each($label, function (key, val) {
@@ -346,15 +348,14 @@ $(function () {
             
             if (flag) {
                 saveMd(link, htmlarr.join(''), function () {
-                    alert('完成');
                     sett();
-                    alert('新建完成');
                 });
                 var sett = function () {
                     var defer = $.Deferred();
                     $.when(refreshMd()).then(function (res) {
                         $new_info.hide();
                         $nav.show();
+                        $slidebar.removeClass('active');
 
                         var htmllist = setHtml(res);
                         $nav.html(htmllist);
@@ -398,7 +399,6 @@ $(function () {
         });
 
         var old_date = new Date(date - day).toLocaleDateString();
-        console.log(old_date, 'sss');
         old_date = old_date.split('/');
         
         old_date = old_date.map(function (val, index) {

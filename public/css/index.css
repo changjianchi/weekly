@@ -36,6 +36,9 @@ ul {
     border-right: 1px solid #eee;
     box-shadow: 5px 0px 10px rgba(0, 0, 0, .05);
 }
+.slidebar.active {
+    width: 100%;
+}
 .slidebar a{
     color: #222;
     display: block;

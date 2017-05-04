@@ -44,7 +44,6 @@ app.get('/', function (req, res, next) {
 
 // 异步请求md文档
 app.get('/api/get', function (req, res, next) {
-    console.log(req.query.name);
     var name = req.query.name;
     name = dir + name;
     var content = fs.readFileSync(name, 'utf-8');
@@ -57,7 +56,6 @@ app.get('/api/get', function (req, res, next) {
 
 // 保存md文件
 app.get('/api/save', function (req, res, next) {
-    console.log(req.query.name);
     var name = req.query.name;
     var data = req.query.data;
     name = dir + name;
