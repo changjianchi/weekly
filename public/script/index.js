@@ -261,7 +261,7 @@ $(function () {
      * [refreshMd 添加新的md文档后异步刷新页面，不传任何参数，只是触发后端重新渲染目录结构]
      * @return {[type]}      [返回的promise状态]
      */
-    var refreshMd = function () {
+    var refreshMd = function (name) {
         var defer = $.Deferred();
         if (xhr) {
             xhr.abort();
@@ -270,6 +270,9 @@ $(function () {
         var xhr = $.ajax({
             url: 'api/new',
             timeout: 7000,
+            data: {
+                name: name
+            },
             beforeSend: function () {
                 
             },
@@ -347,7 +350,7 @@ $(function () {
             if (flag) {
                 saveMd(link, htmlarr.join(''), function () {
                     var defer = $.Deferred();
-                    $.when(refreshMd()).then(function (res) {
+                    $.when(refreshMd(link)).then(function (res) {
                         $new_info.hide();
                         $nav.show();
 
