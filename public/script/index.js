@@ -270,9 +270,6 @@ $(function () {
         var xhr = $.ajax({
             url: 'api/new',
             timeout: 7000,
-            data: {
-                name: name
-            },
             beforeSend: function () {
                 
             },
@@ -350,7 +347,7 @@ $(function () {
             if (flag) {
                 saveMd(link, htmlarr.join(''), function () {
                     var defer = $.Deferred();
-                    $.when(refreshMd(link)).then(function (res) {
+                    $.when(refreshMd()).then(function (res) {
                         $new_info.hide();
                         $nav.show();
 
