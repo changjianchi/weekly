@@ -39,10 +39,16 @@
             </div>
             <ul class="nav">
                 {{each dirData as $item index}}
-                    <li{{if index === 0}} class="li_first"{{/if}} data-id="{{$item.id}}">
-                        <a href="{{$item.link}}">{{$item.title}}</a>
-                        <span class="btn edit">编辑</span>
-                        <span class="btn add">添加</span>
+                    <li{{if index === 0}} class="li_first"{{/if}}{{if $item.link}} data-id="{{$item.id}}"{{/if}}>
+                        {{if $item.link}}
+                            <div class="nav_info">
+                                <a href="{{$item.link}}">{{$item.title}}</a>
+                                <span class="btn edit">编辑</span>
+                                <span class="btn add">添加</span>
+                            </div>
+                        {{else}}
+                            <div class="nav_title">{{$item.title}}</div>
+                        {{/if}}
                     </li>
                 {{/each}}
             </ul>
@@ -61,10 +67,7 @@
     <script src="script/jquery.js"></script>
     <script src="script/jquery.zclip.js"></script>
     <script>
-    $(function () {
         var data = {{#data}};    // 左侧目录树数据
-        console.log(data);
-    });
     </script>
     <script src="script/index.js"></script>
 </body>

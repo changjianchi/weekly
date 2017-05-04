@@ -17,9 +17,46 @@ $(function () {
     md.coder = [];
     md.flag = false;
 
+    console.log(data);
     console.log(md);
 
     $docx_body.css('height', winHeight - 100 + 'px');
+
+    var setHtml = function (data) {
+        var html = '';
+        data.forEach(function (res, index) {
+            html += '<li' + (index === 0 ? ' class="li_first"' : '') + (res.link ? ' data-id="' + res.id + '"' : '') + '>';
+            if (res.link) {
+                html += '<div class="nav_info">';
+                html +=     '<a href="' + res.link + '">' + res.title + '</a>';
+                html +=     '<span class="btn edit">编辑</span>';
+                html +=     '<span class="btn add">添加</span>';
+                html += '</div>';
+            }
+            else {
+                html += '<div class="nav_title">' + res.title + '</div>';
+                html += '<ul class="sub_nav">';
+                html += setHtml(res.child);
+                html += '</ul>';
+            }
+            html += '</li>';
+        });
+        return html;
+    };
+    var navlist = setHtml(data);
+    $nav.html(navlist);
+
+    $nav.on('click', '.nav_title', function () {
+        if ($(this).hasClass('focus')) {
+            $(this).removeClass('focus');
+            $(this).next('.sub_nav').removeClass('in');
+        }
+        else {
+            $(this).addClass('focus');
+            $(this).next('.sub_nav').addClass('in');
+        }
+        console.log(1);
+    });
 
     $nav.on('mouseover mouseout', '.btn', function (event) {
         if (event.type === 'mouseover') {
@@ -156,6 +193,10 @@ $(function () {
         }
         defer.resolve(setIds(ids, link, md.type));
         return defer.promise();
+    });
+
+    $nav.on('click', 'a', function (event) {
+        event.preventDefault();
     });
 
     /**
@@ -371,20 +412,6 @@ $(function () {
             }
         }
     });
-
-    var setHtml = function (data) {
-        var html = data.map(function (res, index) {
-            var $li = [
-                '<li' + (index == 0 ? ' class="li_first"' : '') + ' data-id="' + res.id + '">',
-                    '<a href="' + res.link + '">' + res.title + '</a>',
-                    '<span class="btn edit">编辑</span>',
-                    '<span class="btn add">添加</span>',
-                '</li>'
-            ].join('');
-            return $li;
-        }).join('');
-        return html;
-    };
 
     var setTime = function () {
         var date = new Date();

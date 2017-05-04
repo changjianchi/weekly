@@ -48,6 +48,9 @@ app.get('/api/get', function (req, res, next) {
     name = dir + name;
     var content = fs.readFileSync(name, 'utf-8');
     var htmlMd = marked(content);
+    // 兼容todo
+    htmlMd = htmlMd.replace(/<li>\s*\[ \]\s*/g, '<li><input type="checkbox" class="ui-todo" disabled>');
+    htmlMd = htmlMd.replace(/<li>\s*\[x\]\s*/g, '<li><input type="checkbox" disabled checked class="ui-todo">');
     res.json({
         data: htmlMd,
         code: content
