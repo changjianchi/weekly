@@ -80,9 +80,9 @@ app.get('/api/save', function (req, res, next) {
 
 // 新建md文档后异步刷新页面
 app.get('/api/new', function (req, res, next) {
-    req.dirData = setDir(dir);
+    var dirData = setDir(dir);
     res.json({
-        data: req.dirData
+        data: dirData
     });
 });
 
