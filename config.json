@@ -1,0 +1,91 @@
+{
+    "port": "8003",
+    "path": "public/list",
+    "title": "小常",
+    "name": "CJC-DOC",
+    "link":"/",
+    "search": "全文搜索",
+    "static": "public",
+    "newmd": "新建",
+    "in_save": "保存",
+    "content_save": "保存文档",
+    "content_copy": "复制文档",
+    "new_info": [
+        {
+            "title": "项目名称",
+            "tips": "##",
+            "value": "请输入项目名称",
+            "type": 0,
+            "selected": 1
+        },
+        {
+            "title": "时间",
+            "tips": ">",
+            "value": "请输入创建文档时间",
+            "class": "in_time",
+            "type": 0,
+            "selected": 1
+        },
+        {
+            "title": "需求背景",
+            "tips": "###",
+            "value": "请输入需求背景",
+            "type": 1,
+            "textarea": 1,
+            "rows": 3,
+            "cols": 30,
+            "selected": 1
+        },
+        {
+            "title": "收益",
+            "tips": "###",
+            "value": "请输入收益情况",
+            "type": 1,
+            "selected": 1
+        },
+        {
+            "title": "工作量评估",
+            "tips": "###",
+            "value": "请输入工作量评估",
+            "type": 1,
+            "textarea": 1,
+            "rows": 8,
+            "cols": 30,
+            "selected": 1
+        },
+        {
+            "title": "完成情况",
+            "tips": "###",
+            "value": "请输入完成情况",
+            "type": 1,
+            "selected": 1
+        },
+        {
+            "title": "本周进展",
+            "tips": "###",
+            "value": "请输入本周工作进展",
+            "type": 1
+        },
+        {
+            "title": "排期计划",
+            "tips": "###",
+            "value": "请输入排期计划",
+            "type": 1,
+            "textarea": 1,
+            "rows": 3,
+            "cols": 30,
+            "selected": 1
+        },
+        {
+            "title": "效果图",
+            "tips": "###",
+            "value": "请输入效果图",
+            "type": 1,
+            "textarea": 1,
+            "rows": 3,
+            "cols": 30
+        }
+    ],
+    "ignoredir": ["img", "imgs", "image", "images", "css", "style", "script", "js", "javascript", ".svn", ".git", ".DS_Store", ".html", ".htm", ".js", ".css"],
+    "index": "/README.md"
+}

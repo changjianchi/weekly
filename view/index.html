@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{config.title}}</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/markdown.css">
+</head>
+<body>
+    <div class="container">
+        <div class="slidebar">
+            <div class="newmd">
+                <div class="btn newmd_btn">{{config.newmd}}</div>
+            </div>
+            <div class="new_info">
+                <form>
+                    {{each config.new_info as $item}}
+                        <label class="label">
+                            <span class="label_title">{{$item.title}}</span>
+                            <div class="input_box">
+                                {{if $item.textarea}}
+                                    <textarea class="input{{if $item.class}} {{$item.class}}{{/if}}" data-type="{{$item.type}}" data-tips="{{$item.tips}}" data-selected="{{$item.selected}}" rows="{{$item.rows}}" cols="{{$item.cols}}"></textarea>
+                                {{else}}
+                                    <input class="input{{if $item.class}} {{$item.class}}{{/if}}" type="text" data-type="{{$item.type}}" data-tips="{{$item.tips}}" data-selected="{{$item.selected}}" placeholder="{{$item.value}}">
+                                {{/if}}
+                            </div>
+                        </label>
+                    {{/each}}
+                    <div class="newmd in_save">
+                        <label class="label address">
+                            <span class="label_title">文档地址</span>
+                            <div class="input_box">
+                                <input class="input" type="text" data-type="" data-tips="" placeholder="请输入md文档名称">
+                            </div>
+                        </label>
+                        <div class="btn">{{config.in_save}}</div>
+                    </div>
+                </form>
+            </div>
+            <ul class="nav">
+                {{each dirData as $item index}}
+                    <li{{if index === 0}} class="li_first"{{/if}} data-id="{{$item.id}}">
+                        <a href="{{$item.link}}">{{$item.title}}</a>
+                        <span class="btn edit">编辑</span>
+                        <span class="btn add">添加</span>
+                    </li>
+                {{/each}}
+            </ul>
+        </div>
+        <div class="content">
+            <div class="markdown-body">
+                <div class="docx_marked" id="docx_marked"></div>
+                <textarea class="docx_textarea"></textarea>
+            </div>
+            <div class="newmd content_foot">
+                <div class="btn content_btn content_save">{{config.content_save}}</div>
+                <div class="btn content_btn content_copy">{{config.content_copy}}</div>
+            </div>
+        </div>
+    </div>
+    <script src="script/jquery.js"></script>
+    <script src="script/jquery.zclip.js"></script>
+    <script>
+    $(function () {
+        var data = {{#data}};    // 左侧目录树数据
+        console.log(data);
+    });
+    </script>
+    <script src="script/index.js"></script>
+</body>
+</html>
