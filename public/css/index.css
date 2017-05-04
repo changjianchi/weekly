@@ -155,6 +155,7 @@ a {
 .sub_nav {
     display: none;
 }
+.nav .nav_title.active,
 .nav .nav_title.focus {
     background-color: #666;
 }

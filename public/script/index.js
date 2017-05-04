@@ -46,16 +46,23 @@ $(function () {
     var navlist = setHtml(data);
     $nav.html(navlist);
 
-    $nav.on('click', '.nav_title', function () {
-        if ($(this).hasClass('focus')) {
-            $(this).removeClass('focus');
-            $(this).next('.sub_nav').removeClass('in');
+    $nav.on('click mouseover mouseout', '.nav_title', function (event) {
+        if (event.type === 'click') {
+            if ($(this).hasClass('focus')) {
+                $(this).removeClass('focus');
+                $(this).next('.sub_nav').removeClass('in');
+            }
+            else {
+                $(this).addClass('focus');
+                $(this).next('.sub_nav').addClass('in');
+            }
+        }
+        else if (event.type === 'mouseover') {
+            $(this).addClass('active');
         }
         else {
-            $(this).addClass('focus');
-            $(this).next('.sub_nav').addClass('in');
+            $(this).removeClass('active');
         }
-        console.log(1);
     });
 
     $nav.on('mouseover mouseout', '.btn', function (event) {
