@@ -1,7 +1,7 @@
 {
     "port": "8003",
     "path": "public/list",
-    "title": "小常",
+    "title": "周报整合平台",
     "name": "CJC-DOC",
     "link":"/",
     "search": "全文搜索",
