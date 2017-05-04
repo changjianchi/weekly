@@ -346,6 +346,11 @@ $(function () {
             
             if (flag) {
                 saveMd(link, htmlarr.join(''), function () {
+                    alert('完成');
+                    sett();
+                    alert('新建完成');
+                });
+                var sett = function () {
                     var defer = $.Deferred();
                     $.when(refreshMd()).then(function (res) {
                         $new_info.hide();
@@ -361,7 +366,7 @@ $(function () {
                     });
                     
                     return defer.promise();
-                });
+                };
             }
         }
     });
