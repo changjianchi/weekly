@@ -47,7 +47,7 @@ a {
 .newmd {
     width: auto;
     height: auto;
-    overflow: hidden;
+    position: relative;
     padding: 20px 15px;
 }
 .newmd .btn {
@@ -294,4 +294,60 @@ a {
 }
 .loading img {
     width: 100%;
+}
+.select_wrap{
+    width: 150px;
+    height: 34px;
+    line-height: 34px;
+    position: absolute;
+    cursor: pointer;
+    top: 21px;
+    right: 15px;
+    display: none;
+}
+.select{
+    width: 100%;
+    height: 100%;
+    background: #f0f0f0;
+    font-size: 12px;
+    position: absolute;
+    text-align: left;
+    overflow: hidden;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    -o-border-radius: 6px;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+}
+.value{
+    margin-left: 5px;
+}
+.option{
+    position: absolute;
+    left: 0;
+    top: 34px;
+    z-index: 0;
+    width: 100%;
+    height: auto;
+}
+.option p{
+    padding: 0 5px;
+    cursor: default;
+    height: 30px;
+    line-height: 30px;
+}
+.option p.hover,
+.option p.active{
+    background: #0f85e0;
+    color: #fff;
+}
+.select_bg{
+    position: absolute;
+    right: 12px;
+    top: 14px;
+    z-index: 2;
+    width: 10px;
+    height: 7px;
+    background: url('../images/select_bg.png') no-repeat 0 0;
 }

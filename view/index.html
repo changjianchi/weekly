@@ -11,6 +11,19 @@
         <div class="slidebar">
             <div class="newmd">
                 <div class="btn newmd_btn">{{config.newmd}}</div>
+                <div class="select_wrap" style="z-index: 8;">
+                    <div class="select">
+                        <div class="value">点击选择垂类</div>
+                        <div class="option">
+                            {{each dirData as $item index}}
+                                {{if !$item.link}}
+                                <p>{{$item.title}}</p>
+                                {{/if}}
+                            {{/each}}
+                        </div>
+                        <div class="select_bg"></div>
+                    </div>
+                </div>
             </div>
             <div class="new_info">
                 <form>

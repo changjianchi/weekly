@@ -11,6 +11,7 @@ $(function () {
     var $copy = $container.find('.content_copy');
     var $save = $container.find('.content_save');
     var $loading = $container.find('.loading');
+    var $select_wrap = $container.find('.select_wrap');
     
     var winHeight = $(window).height();
     var md = {};
@@ -341,6 +342,7 @@ $(function () {
         return defer.promise();
     };
 
+    md.saveflag = true; // 防止多次触发copyMd方法,只有为true的时候才会触发
     $slidebar.on('click', '.newmd_btn', function () {
         $new_info.show();
         $nav.hide();
@@ -348,6 +350,13 @@ $(function () {
         var $in_time = $container.find('.in_time');
         var time = setTime();
         $in_time.val(time);
+        $select_wrap.show();
+
+        if (md.saveflag) {
+            console.log(1);
+            setSelect();
+            md.saveflag = false;
+        }
 
         if ($docx_body.hasClass('markdown-body-active')) {
             $docx_body.removeClass('markdown-body-active');
@@ -404,6 +413,7 @@ $(function () {
             if (flag) {
                 saveMd(link, htmlarr.join(''), function () {
                     sett();
+                    $select_wrap.hide();
                 });
             }
         }
@@ -455,4 +465,63 @@ $(function () {
             $(this).removeClass('tips_input');
         }
     });
+
+    /**
+     * [$select 模拟下拉框]
+     * @type {[obj]}
+     */
+    var setSelect = function () {
+        var $select = $('.select_wrap:visible');
+        $.each($select, function (key, val) {
+            var $this = $(val).find('.select');
+            var flag = false;
+            var $valueHeight = $(val).find('.value').height();
+            var $height = $(val).find('.option').height();
+
+            $(val).css('zIndex', $select.length - key);
+
+            $this.find('.value').on('click', function () {
+                if (flag) {
+                    $this.animate({
+                        height: $valueHeight + 'px'
+                    }, 50);
+                    flag = false;
+                }
+                else {
+                    $this.animate({
+                        height: ($height + $valueHeight) + 'px'
+                    }, 100);
+                    flag = true;
+
+                    setTimeout(function () {
+                        $(document).one('click', function () {
+                            $this.animate({
+                                height: $valueHeight + 'px'
+                            }, 50);
+                            flag = false;
+                        });
+                    });
+                }
+            });
+
+            $this.find('.option p').on('click mouseenter mouseleave', function (event) {
+                if (event.type === 'click') {
+                    $this.find('.value').html($(this).text());
+                    $(this).addClass('active').siblings().removeClass('active');
+                    $this.animate({
+                        height: $valueHeight + 'px'
+                    }, 50);
+                    flag = false;
+                }
+                else if (event.type === 'mouseenter') {
+                    $(this).addClass('hover');
+                }
+                else {
+                    $(this).removeClass('hover');
+                }
+                
+            });
+
+        });
+    };
 });
