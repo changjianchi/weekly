@@ -66,6 +66,12 @@ a {
     -o-border-radius: 4px;
     border-radius: 4px;
 }
+.newmd .btn a {
+    color: #fff;
+}
+.newmd .example.hide {
+    display: none;
+}
 .zclip {
     cursor: default;
 }
@@ -321,7 +327,7 @@ a {
     border: 1px solid #e0e0e0;
 }
 .value{
-    margin-left: 5px;
+    margin-left: 8px;
 }
 .option{
     position: absolute;

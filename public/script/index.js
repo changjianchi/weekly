@@ -12,6 +12,7 @@ $(function () {
     var $save = $container.find('.content_save');
     var $loading = $container.find('.loading');
     var $select_wrap = $container.find('.select_wrap');
+    var $example = $container.find('.example');
     
     var winHeight = $(window).height();
     var md = {};
@@ -351,6 +352,7 @@ $(function () {
         var time = setTime();
         $in_time.val(time);
         $select_wrap.show();
+        $example.removeClass('hide');
 
         if (md.saveflag) {
             console.log(1);
@@ -413,6 +415,7 @@ $(function () {
             if (flag) {
                 saveMd(link, htmlarr.join(''), function () {
                     sett();
+                    $example.addClass('hide');
                     $select_wrap.hide();
                 });
             }
