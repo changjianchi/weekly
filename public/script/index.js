@@ -415,8 +415,6 @@ $(function () {
             if (flag) {
                 saveMd(link, htmlarr.join(''), function () {
                     sett();
-                    $example.addClass('hide');
-                    $select_wrap.hide();
                 });
             }
         }
@@ -434,6 +432,8 @@ $(function () {
 
             // 提交成功后清空文本框内容
             $label.find('.input').val('');
+            $example.addClass('hide');
+            $select_wrap.hide();
         }, function () {
             defer.reject();
         });
