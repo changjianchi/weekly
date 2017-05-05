@@ -281,3 +281,17 @@ a {
 .new_info label .input.tips_input {
     border-color: #b42c2c;
 }
+.loading {
+    position: fixed;
+    left: 450px;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 120px;
+    height: 120px;
+    display: none;
+}
+.loading img {
+    width: 100%;
+}

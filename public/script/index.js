@@ -10,6 +10,7 @@ $(function () {
     var $content_foot = $container.find('.content_foot');
     var $copy = $container.find('.content_copy');
     var $save = $container.find('.content_save');
+    var $loading = $container.find('.loading');
     
     var winHeight = $(window).height();
     var md = {};
@@ -217,6 +218,9 @@ $(function () {
 
         saveMd(link, text, function () {
             md.list = [];
+            $content_foot.removeClass('show');
+            $textarea.val('');
+            sett();
             alert('保存成功');
         });
     });
@@ -238,10 +242,11 @@ $(function () {
                 name: name
             },
             beforeSend: function () {
-                
+                $loading.show();
             },
             success: function (res) {
                 if (res && res.data && res.code) {
+                    $loading.hide();
                     defer.resolve(res);
                 }
             },
@@ -278,10 +283,11 @@ $(function () {
                 data: data
             },
             beforeSend: function () {
-                
+                $loading.show();
             },
             success: function (res) {
                 if (callback) {
+                    $loading.hide();
                     defer.resolve(callback());
                 }
                 else {
@@ -315,10 +321,11 @@ $(function () {
             url: 'api/new',
             timeout: 7000,
             beforeSend: function () {
-                
+                $loading.show();
             },
             success: function (res) {
                 if (res && res.data) {
+                    $loading.hide();
                     defer.resolve(res.data);
                 }
             },
@@ -398,27 +405,28 @@ $(function () {
                 saveMd(link, htmlarr.join(''), function () {
                     sett();
                 });
-                var sett = function () {
-                    var defer = $.Deferred();
-                    $.when(refreshMd()).then(function (res) {
-                        $new_info.hide();
-                        $nav.show();
-                        $slidebar.removeClass('active');
-
-                        var htmllist = setHtml(res);
-                        $nav.html(htmllist);
-
-                        // 提交成功后清空文本框内容
-                        $label.find('.input').val('');
-                    }, function () {
-                        defer.reject();
-                    });
-                    
-                    return defer.promise();
-                };
             }
         }
     });
+
+    var sett = function () {
+        var defer = $.Deferred();
+        $.when(refreshMd()).then(function (res) {
+            $new_info.hide();
+            $nav.show();
+            $slidebar.removeClass('active');
+
+            var htmllist = setHtml(res);
+            $nav.html(htmllist);
+
+            // 提交成功后清空文本框内容
+            $label.find('.input').val('');
+        }, function () {
+            defer.reject();
+        });
+        
+        return defer.promise();
+    };
 
     var setTime = function () {
         var date = new Date();
