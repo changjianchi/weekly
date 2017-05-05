@@ -27,6 +27,13 @@
             "selected": 1
         },
         {
+            "title": "开发状态",
+            "tips": ">",
+            "value": "请选择开发状态",
+            "type": 0,
+            "selected": 1
+        },
+        {
             "title": "需求背景",
             "tips": "###",
             "value": "请输入需求背景",
