@@ -349,6 +349,9 @@ $(function () {
         }
         else if (event.type === 'click') {
             $(this).addClass('active').siblings('.tags').removeClass('active');
+            if ($(this).closest('.input').hasClass('tips_input')) {
+                $(this).closest('.input').removeClass('tips_input')
+            }
         }
         else {
             $(this).removeClass('focus');
@@ -489,6 +492,10 @@ $(function () {
         $.each($select, function (key, val) {
             var $this = $(val).find('.select');
             var flag = false;
+
+            var defaultText = $.text($this.find('.option p').eq(0));
+            $this.find('.value').html(defaultText);
+            
             var $valueHeight = $(val).find('.value').height();
             var $height = $(val).find('.option').height();
 
@@ -520,7 +527,12 @@ $(function () {
 
             $this.find('.option p').on('click mouseenter mouseleave', function (event) {
                 if (event.type === 'click') {
-                    md.type = $.text($(this));
+                    if ($(this).index() === 0) {
+                        md.type = '';
+                    }
+                    else {
+                        md.type = $.text($(this));
+                    }
                     $this.find('.value').html($(this).text());
                     $(this).addClass('active').siblings().removeClass('active');
                     $this.animate({
