@@ -32,10 +32,18 @@
                         <label class="label">
                             <span class="label_title">{{$item.title}}</span>
                             <div class="input_box">
-                                {{if $item.textarea}}
-                                    <textarea class="input{{if $item.class}} {{$item.class}}{{/if}}" data-type="{{$item.type}}" data-tips="{{$item.tips}}" data-selected="{{$item.selected}}" rows="{{$item.rows}}" cols="{{$item.cols}}"></textarea>
+                                {{if $item.status}}
+                                    <div class="input status" data-type="{{$item.type}}" data-tips="{{$item.tips}}" data-selected="{{$item.selected}}">
+                                        {{each $item.status as $status}}
+                                            <span class="tags">{{$status}}</span>
+                                        {{/each}}
+                                    </div>
                                 {{else}}
-                                    <input class="input{{if $item.class}} {{$item.class}}{{/if}}" type="text" data-type="{{$item.type}}" data-tips="{{$item.tips}}" data-selected="{{$item.selected}}" placeholder="{{$item.value}}">
+                                    {{if $item.textarea}}
+                                        <textarea class="input{{if $item.class}} {{$item.class}}{{/if}}" data-type="{{$item.type}}" data-tips="{{$item.tips}}" data-selected="{{$item.selected}}" rows="{{$item.rows}}" cols="{{$item.cols}}"></textarea>
+                                    {{else}}
+                                        <input class="input{{if $item.class}} {{$item.class}}{{/if}}" type="text" data-type="{{$item.type}}" data-tips="{{$item.tips}}" data-selected="{{$item.selected}}" placeholder="{{$item.value}}">
+                                    {{/if}}
                                 {{/if}}
                             </div>
                         </label>

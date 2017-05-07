@@ -19,12 +19,11 @@
             "selected": 1
         },
         {
-            "title": "时间",
-            "tips": ">",
-            "value": "请输入创建文档时间",
-            "class": "in_time",
-            "type": 0,
-            "selected": 1
+            "title": "开发状态",
+            "tips": "###",
+            "type": 1,
+            "selected": 1,
+            "status": ["需求评审中", "开发中", "联调中", "提测中", "已上线", "零流量", "小流量", "全流量"]
         },
         {
             "title": "需求背景",
@@ -58,13 +57,19 @@
             "tips": "###",
             "value": "请输入完成情况",
             "type": 1,
+            "textarea": 1,
+            "rows": 3,
+            "cols": 30,
             "selected": 1
         },
         {
             "title": "本周进展",
             "tips": "###",
             "value": "请输入本周工作进展",
-            "type": 1
+            "type": 1,
+            "textarea": 1,
+            "rows": 3,
+            "cols": 30
         },
         {
             "title": "排期计划",

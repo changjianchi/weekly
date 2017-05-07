@@ -126,6 +126,26 @@ a {
     outline: none;
     border: 1px solid #f1f1f1;
 }
+.new_info label .status {
+    border-color: #fff;
+}
+.new_info label .status .tags {
+    float: left;
+    background: #f1f1f1;
+    margin-right: 10px;
+    padding: 4px 10px;
+    cursor: pointer;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+}
+.new_info label .status .tags.focus,
+.new_info label .status .tags.active {
+    background: #008dce;
+    color: #fff;
+}
 .nav .nav_title {
     width: auto;
     height: auto;

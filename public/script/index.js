@@ -343,19 +343,27 @@ $(function () {
         return defer.promise();
     };
 
+    $new_info.on('mouseenter mouseleave click', '.tags', function (event) {
+        if (event.type === 'mouseenter') {
+            $(this).addClass('focus');
+        }
+        else if (event.type === 'click') {
+            $(this).addClass('active').siblings('.tags').removeClass('active');
+        }
+        else {
+            $(this).removeClass('focus');
+        }
+    });
+
     md.saveflag = true; // 防止多次触发copyMd方法,只有为true的时候才会触发
     $slidebar.on('click', '.newmd_btn', function () {
         $new_info.show();
         $nav.hide();
         $slidebar.addClass('active');
-        var $in_time = $container.find('.in_time');
-        var time = setTime();
-        $in_time.val(time);
         $select_wrap.show();
         $example.removeClass('hide');
 
         if (md.saveflag) {
-            console.log(1);
             setSelect();
             md.saveflag = false;
         }
@@ -386,7 +394,11 @@ $(function () {
                 if (mdreg.test($adress.val())) {
                     flag = true;
                     var reg = /^\//g;
-                    var link = '/' + $adress.val().replace(reg, '');
+                    var text = '/' + $adress.val().replace(reg, '');
+                    if (md.type && md.type != '') {
+                        text = '/' + md.type + text;
+                    }
+                    var link = text;
                 }
                 else {
                     $adress.addClass('tips_input');
@@ -395,20 +407,41 @@ $(function () {
 
             $.each($label, function (key, val) {
                 var $input = $(val).find('.input');
-                var $val = $input.val();
-                if ($val != '') {
-                    if (!$(val).hasClass('adress')) {
-                        var $tips = $input.data('tips') + ' ';
-                        if ($input.attr('data-type') === '1') {
-                            var $label_title = $(val).find('.label_title');
-                            $tips = $tips + $.text($label_title) + '\n\r\n\r';
+                if ($input.hasClass('status')) {
+                    md.status = [];
+                    $.each($input.find('.tags'), function (index, value) {
+                        if ($(value).hasClass('active')) {
+                            var $tips = $input.data('tips') + ' ';
+                            if ($input.attr('data-type') === '1') {
+                                var $label_title = $(val).find('.label_title');
+                                $tips = $tips + $.text($label_title) + '\n\r\n\r';
+                            }
+                            htmlarr.push($tips + $.text($(value)) + '\n\r\n\r');
+                            md.status[0] = 1;
+                            return;
                         }
+                    });
+                    if (!md.status.length) {
+                        flag = false;
+                        $input.addClass('tips_input');
                     }
-                    htmlarr.push($tips + $val + '\n\r\n\r');
                 }
-                else if ($val == '' && ($input.data('selected') == '1')) {
-                    flag = false;
-                    $input.addClass('tips_input');
+                else {
+                    var $val = $input.val();
+                    if ($val != '') {
+                        if (!$(val).hasClass('adress')) {
+                            var $tips = $input.data('tips') + ' ';
+                            if ($input.attr('data-type') === '1') {
+                                var $label_title = $(val).find('.label_title');
+                                $tips = $tips + $.text($label_title) + '\n\r\n\r';
+                            }
+                        }
+                        htmlarr.push($tips + $val + '\n\r\n\r');
+                    }
+                    else if ($val == '' && ($input.data('selected') == '1') && !$input.hasClass('status')) {
+                        flag = false;
+                        $input.addClass('tips_input');
+                    }
                 }
             });
             
@@ -439,28 +472,6 @@ $(function () {
         });
         
         return defer.promise();
-    };
-
-    var setTime = function () {
-        var date = new Date();
-        var now_day = date.getDay();
-        now_day = now_day == 0 ? 7 : now_day;
-        var day = 86400000 * (now_day - 1);
-
-        var now_date = date.toLocaleDateString();
-        now_date = now_date.split('/');
-        now_date = now_date.map(function (val, index) {
-            return val < 10 ? '0' + val : val;
-        });
-
-        var old_date = new Date(date - day).toLocaleDateString();
-        old_date = old_date.split('/');
-        
-        old_date = old_date.map(function (val, index) {
-            return val < 10 ? '0' + val : val;
-        });
-        
-        return old_date.join('-') + '至' + now_date.join('-');
     };
 
     $label.on('change input', '.input', function () {
@@ -509,6 +520,7 @@ $(function () {
 
             $this.find('.option p').on('click mouseenter mouseleave', function (event) {
                 if (event.type === 'click') {
+                    md.type = $.text($(this));
                     $this.find('.value').html($(this).text());
                     $(this).addClass('active').siblings().removeClass('active');
                     $this.animate({
