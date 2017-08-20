@@ -32,6 +32,7 @@ $(function () {
             if (res.link) {
                 html += '<div class="nav_info">';
                 html +=     '<a href="' + res.link + '">' + res.title + '</a>';
+                // html +=     '<span class="btn dele">删除</span>';
                 html +=     '<span class="btn edit">编辑</span>';
                 html +=     '<span class="btn add">添加</span>';
                 html += '</div>';
@@ -386,7 +387,7 @@ $(function () {
     $slidebar.on('click', '.in_save', function (event) {
         var $this = $(event.target);
         var flag = false;
-        if ($this.hasClass('btn')) {
+        if ($this.hasClass('btn_save')) {
             var htmlarr = [];
             var $adress = $(this).closest('.in_save').find('.input');
             if ($adress.val() == '') {
@@ -454,27 +455,45 @@ $(function () {
                 });
             }
         }
+        else if ($this.hasClass('btn_chanel')) {
+            hideNew();
+        }
     });
 
     var sett = function () {
         var defer = $.Deferred();
         $.when(refreshMd()).then(function (res) {
-            $new_info.hide();
-            $nav.show();
-            $slidebar.removeClass('active');
+            hideNew();
 
             var htmllist = setHtml(res);
             $nav.html(htmllist);
-
-            // 提交成功后清空文本框内容
-            $label.find('.input').val('');
-            $example.addClass('hide');
-            $select_wrap.hide();
         }, function () {
             defer.reject();
         });
         
         return defer.promise();
+    };
+
+    /**
+     * [hideNew 关闭新建元素]
+     * @return {[type]} [description]
+     */
+    function hideNew () {
+        $new_info.hide();
+        $nav.show();
+        $slidebar.removeClass('active');
+        
+        // 提交成功后清空文本框内容
+        $label.find('.input').val('').removeClass('tips_input');
+        $example.addClass('hide');
+        $select_wrap.hide();
+
+        /**
+         * 关闭新建元素初始化页面加载时的样式
+         */
+        $nav.find('.nav_title').removeClass('focus');
+        $nav.find('ul').removeClass('in');
+        $nav.find('li').removeClass('active');
     };
 
     $label.on('change input', '.input', function () {

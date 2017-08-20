@@ -204,9 +204,11 @@ a {
     float: right;
 }
 .nav li a {
-    width: 70%;
+    width: 60%;
     float: left;
     overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .nav li .btn {
     margin-left: 10px;
@@ -298,8 +300,11 @@ a {
     right: 0;
     top: 3px;
 }
+.in_save .btn.btn_save {
+    right: 60px;
+}
 .in_save .input_box {
-    padding-right: 70px;
+    padding-right: 130px;
 }
 .in_save .label {
     margin-top: 0;
